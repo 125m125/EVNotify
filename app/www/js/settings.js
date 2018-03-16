@@ -73,11 +73,13 @@ function loadSettings() {
 /**
  * Function which saves the settings and sends the new settings to backend server
  * NOTE: Requires the users account password to authenticate to prevent abuse
+ * @param  {Object} [settingsObj]   optional given settings object - if given, this will be used to save, otherwise settings from settings page will be used
+ * @return {void}
  */
-function saveSettings() {
-    var lngVal = document.getElementById('language').getAttribute('data-val'),
+function saveSettings(settingsObj) {
+    var lngVal = ((settingsObj)? false : document.getElementById('language').getAttribute('data-val')),
         lng = setValue('lng', ((lngVal && lngVal !== 'null')? lngVal : getValue('lng', 'en'))),
-        settingsObj = setValue('config', {
+        settingsObj = settingsObj || setValue('config', {
             lngObj: {
                 lng: lng,
                 name: document.getElementById('language').value

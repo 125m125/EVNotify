@@ -294,7 +294,11 @@ function consumption() {
             step: 0.1
         },
         inputValue: getValue('consumption', 13)
-    }, function() {
-        console.log(arguments);
+    }).then(function() {
+        var settingsObj = JSON.parse(getValue('config', '{}'));
+
+        settingsObj.consumption = getValue('consumption', 13);
+        // save settings with whole settings
+        saveSettings(settingsObj);
     }).catch(function() {});
 }
